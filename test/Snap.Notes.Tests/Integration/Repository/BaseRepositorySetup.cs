@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 
-namespace Snap.Notes.Tests.Integration.Data
+namespace Snap.Notes.Tests.Integration.Repository
 {
     public class BaseRepositorySetup<T> where T : BaseEntity
     {

@@ -3,11 +3,11 @@ using Snap.Notes.Core.SharedKernel;
 
 namespace Snap.Notes.Core.Events
 {
-    public class ToDoItemCompletedEvent : BaseDomainEvent
+    public class CompletedEvent<T> : BaseDomainEvent where T : BaseEntity
     {
-        public ToDoItem CompletedItem { get; set; }
+        public T CompletedItem { get; set; }
 
-        public ToDoItemCompletedEvent(ToDoItem completedItem)
+        public CompletedEvent(T completedItem)
         {
             CompletedItem = completedItem;
         }

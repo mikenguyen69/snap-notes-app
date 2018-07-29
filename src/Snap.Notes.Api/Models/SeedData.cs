@@ -12,18 +12,18 @@ namespace Snap.Notes.Api.Models
     public static class SeedData
     {
         public static void EnsurePopulated(AppDbContext context)
-        {            
-            if (!context.ToDoItems.Any())
+        {
+            if (!context.Categories.Any())
             {
                 // Add ToDoItems
-                context.ToDoItems.AddRange(
-                    new ToDoItem
+                context.Categories.AddRange(
+                    new Category
                     {
                         Id = 1,
                         Title = "Test Item 1",
                         Description = "Item 1 Description"
                     },
-                    new ToDoItem
+                    new Category
                     {
                         Id = 2,
                         Title = "Test Item 2",
@@ -34,28 +34,7 @@ namespace Snap.Notes.Api.Models
 
                 context.SaveChanges();
             }
-
-            if (!context.Products.Any())
-            {
-                context.Products.AddRange(
-                    new Product
-                    {
-                        Id = 1, 
-                        Name = "Test Product 1",
-                        Category = "Testing",
-                        Price=0
-                    }
-                    , new Product
-                    {
-                        Id = 2,
-                        Name = "Test Product 2",
-                        Category = "Testing",
-                        Price = 0
-                    }
-                );
-
-                context.SaveChanges();
-            }
         }
+            
     }
 }

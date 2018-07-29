@@ -17,10 +17,10 @@ using System.Threading.Tasks;
 
 namespace Snap.Notes.Tests.Integration.Api
 {
-    public abstract class BaseWebControllerTest<T> where T : BaseEntity
+    public abstract class BaseWebControllerSetup<T> where T : BaseEntity
     {
         protected readonly HttpClient _client;
-        public BaseWebControllerTest()
+        public BaseWebControllerSetup()
         {
             _client = GetClient();
         }

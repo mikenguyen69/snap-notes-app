@@ -1,33 +1,33 @@
-﻿using Snap.Notes.Core.Entities;
-using Snap.Notes.Core.Events;
-using System.Linq;
-using Xunit;
+﻿//using Snap.Notes.Core.Entities;
+//using Snap.Notes.Core.Events;
+//using System.Linq;
+//using Xunit;
 
-namespace Snap.Notes.Tests.Core.Entities
-{
-    public class ToDoItemMarkCompleteShould
-    {
-        // this is to test after completed then the item must be done
-        [Fact]
-        public void SetIsDoneToTrue()
-        {
-            var item = new ToDoItem();
+//namespace Snap.Notes.Tests.Core.Entities
+//{
+//    public class ToDoItemMarkCompleteShould
+//    {
+//        // this is to test after completed then the item must be done
+//        [Fact]
+//        public void SetIsDoneToTrue()
+//        {
+//            var item = new ToDoItem();
 
-            item.MarkComplete();
+//            item.MarkComplete();
 
-            Assert.True(item.IsDone);
-        }
+//            Assert.True(item.IsDone);
+//        }
 
-        // this is to test the complete event via trigger the item to be completed
-        [Fact]
-        public void RaiseToDoItemCompletedEvent()
-        {
-            var item = new ToDoItem();
+//        // this is to test the complete event via trigger the item to be completed
+//        [Fact]
+//        public void RaiseToDoItemCompletedEvent()
+//        {
+//            var item = new ToDoItem();
 
-            item.MarkComplete();
+//            item.MarkComplete();
 
-            Assert.Single(item.Events);
-            Assert.IsType<ToDoItemCompletedEvent>(item.Events.First());
-        }
-    }
-}
+//            Assert.Single(item.Events);
+//            Assert.IsType<ToDoItemCompletedEvent>(item.Events.First());
+//        }
+//    }
+//}

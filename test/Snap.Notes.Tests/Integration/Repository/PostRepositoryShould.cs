@@ -4,14 +4,14 @@ using Xunit;
 using System.Linq;
 using Snap.Notes.Core.Entities;
 
-namespace Snap.Notes.Tests.Integration.Data
+namespace Snap.Notes.Tests.Integration.Repository
 {
-    public class ToDoItemRepositoryAddShould : BaseRepositorySetup<ToDoItem>
+    public class PostRepositoryShould : BaseRepositorySetup<Post>
     {
         [Fact]
-        public void AddItemAndSetId()
+        public void AddEntryAndSetId()
         {           
-            var item = new ToDoItem();
+            var item = new Post();
 
             _repository.Add(item);
 
@@ -22,13 +22,13 @@ namespace Snap.Notes.Tests.Integration.Data
         }
 
         [Fact]
-        public void UpdateItemAfterAddingIt()
+        public void UpdateEntryAfterAddingIt()
         {
             // add an item
             var initialTitle = Guid.NewGuid().ToString();
-            var item = new ToDoItem()
+            var item = new Post()
             {
-                Title = initialTitle
+                Content = initialTitle
             };
             _repository.Add(item);
             
@@ -37,28 +37,29 @@ namespace Snap.Notes.Tests.Integration.Data
 
             // fetch the item and update its title
             var newItem = _repository.List()
-                .FirstOrDefault(i => i.Title == initialTitle);
+                .FirstOrDefault(i => i.Content == initialTitle);
             Assert.NotSame(item, newItem);
             var newTitle = Guid.NewGuid().ToString();
-            newItem.Title = newTitle;
+            newItem.Content = newTitle;
 
             // Update the item
             _repository.Update(newItem);        
             var updatedItem = _repository.List()
-                .FirstOrDefault(i => i.Title == newTitle);
+                .FirstOrDefault(i => i.Content == newTitle);
 
-            Assert.NotEqual(item.Title, updatedItem.Title);
+            Assert.NotEqual(item.Content, updatedItem.Content);
             Assert.Equal(newItem.Id, updatedItem.Id);
         }
 
         [Fact]
-        public void DeleteItemAfterAddingIt()
+        public void DeleteEntryAfterAddingIt()
         {
             // add an item
             var initialTitle = Guid.NewGuid().ToString();
-            var item = new ToDoItem()
+            var item = new Post()
             {
-                Title = initialTitle
+                Content = initialTitle,
+                CategoryId = 1,
             };
             _repository.Add(item);
 
@@ -67,7 +68,7 @@ namespace Snap.Notes.Tests.Integration.Data
 
             // verify it's no longer there
             Assert.DoesNotContain(_repository.List(), 
-                i => i.Title == initialTitle);
+                i => i.Content == initialTitle);
         }        
     }
 }

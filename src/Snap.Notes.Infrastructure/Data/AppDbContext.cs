@@ -16,8 +16,8 @@ namespace Snap.Notes.Infrastructure.Data
             _dispatcher = dispatcher;
         }
 
-        public DbSet<ToDoItem> ToDoItems { get; set; }
-        public DbSet<Product> Products { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Post> Posts { get; set; }
 
         public override int SaveChanges()
         {

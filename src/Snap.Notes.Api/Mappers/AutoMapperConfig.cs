@@ -10,10 +10,11 @@ namespace Snap.Notes.Api.Mappers
         {
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<Product, ProductDTO>();
-                cfg.CreateMap<ProductDTO, Product>();
-                cfg.CreateMap<ToDoItem, ToDoItemDTO>();
-                cfg.CreateMap<ToDoItemDTO, ToDoItem>();
+                cfg.CreateMap<Category, CategoryDTO>();
+                cfg.CreateMap<CategoryDTO, Category>();
+
+                cfg.CreateMap<Post, PostDTO>();
+                cfg.CreateMap<PostDTO, Post>();
             });
 
             return config.CreateMapper();
