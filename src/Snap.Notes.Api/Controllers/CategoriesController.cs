@@ -42,19 +42,11 @@ namespace CASportStore.Web.Api.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] CategoryDTO item)
         {
-            var Category = new Category()
-            {
-                Title = item.Title,
-                Description = item.Description
-            };
+            var category = _mapper.Map<CategoryDTO, Category>(item);
 
-            if (item.Id > 0)
-            {
-                Category.Id = item.Id;
-            }
+            _repository.Add(category);
 
-            _repository.Add(Category);
-            return Ok(_mapper.Map<Category, CategoryDTO>(Category));
+            return Ok(_mapper.Map<Category, CategoryDTO>(category));
         }
 
         

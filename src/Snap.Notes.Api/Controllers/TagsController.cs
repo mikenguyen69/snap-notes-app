@@ -10,54 +10,54 @@ namespace CASportStore.Web.Api.Controllers
 {
     [Route("api/[controller]")]
     [ValidateModel]
-    public class PostsController : Controller
+    public class TagsController : Controller
     {
-        private readonly IRepository<Post> _repository;
+        private readonly IRepository<Tag> _repository;
         private readonly IMapper _mapper;
 
-        public PostsController(IRepository<Post> repository, IMapper mapper)
+        public TagsController(IRepository<Tag> repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
         }
 
-        // GET: api/Posts
+        // GET: api/Tags
         [HttpGet]
         public IActionResult List()
         {
             var items = _repository.List()
-                            .Select(item => _mapper.Map<Post, PostDTO>(item));
+                            .Select(item => _mapper.Map<Tag, TagDTO>(item));
             return Ok(items);
         }
 
-        // GET: api/Posts
+        // GET: api/Tags
         [HttpGet("{id:int}")]
         public IActionResult GetById(int id)
         {
-            var item = _mapper.Map<Post, PostDTO>(_repository.GetById(id));
+            var item = _mapper.Map<Tag, TagDTO>(_repository.GetById(id));
             return Ok(item);
         }
 
-        // POST: api/Posts
+        // POST: api/Tags
         [HttpPost]
-        public IActionResult Post([FromBody] PostDTO item)
+        public IActionResult Post([FromBody] TagDTO item)
         {
-            var post = _mapper.Map<PostDTO, Post>(item);
+            var tag = _mapper.Map<TagDTO, Tag>(item);
 
-            _repository.Add(post);
+            _repository.Add(tag);
 
-            return Ok(_mapper.Map<Post, PostDTO>(post));
+            return Ok(_mapper.Map<Tag, TagDTO>(tag));
         }
 
         
         [HttpPatch("update")]
-        public IActionResult Complete([FromBody] PostDTO itemDTO)
+        public IActionResult Complete([FromBody] TagDTO itemDTO)
         {
-            var item = _mapper.Map<PostDTO, Post>(itemDTO);
+            var item = _mapper.Map<TagDTO, Tag>(itemDTO);
             
             _repository.Update(item);
 
-            return Ok(_mapper.Map<Post, PostDTO>(item));
+            return Ok(_mapper.Map<Tag, TagDTO>(item));
         }
     }
 }

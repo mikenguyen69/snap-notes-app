@@ -10,54 +10,54 @@ namespace CASportStore.Web.Api.Controllers
 {
     [Route("api/[controller]")]
     [ValidateModel]
-    public class PostsController : Controller
+    public class BooksController : Controller
     {
-        private readonly IRepository<Post> _repository;
+        private readonly IRepository<Book> _repository;
         private readonly IMapper _mapper;
 
-        public PostsController(IRepository<Post> repository, IMapper mapper)
+        public BooksController(IRepository<Book> repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
         }
 
-        // GET: api/Posts
+        // GET: api/Books
         [HttpGet]
         public IActionResult List()
         {
             var items = _repository.List()
-                            .Select(item => _mapper.Map<Post, PostDTO>(item));
+                            .Select(item => _mapper.Map<Book, BookDTO>(item));
             return Ok(items);
         }
 
-        // GET: api/Posts
+        // GET: api/Books
         [HttpGet("{id:int}")]
         public IActionResult GetById(int id)
         {
-            var item = _mapper.Map<Post, PostDTO>(_repository.GetById(id));
+            var item = _mapper.Map<Book, BookDTO>(_repository.GetById(id));
             return Ok(item);
         }
 
-        // POST: api/Posts
+        // POST: api/Books
         [HttpPost]
-        public IActionResult Post([FromBody] PostDTO item)
+        public IActionResult Post([FromBody] BookDTO item)
         {
-            var post = _mapper.Map<PostDTO, Post>(item);
+            var book = _mapper.Map<BookDTO, Book>(item);
 
-            _repository.Add(post);
+            _repository.Add(book);
 
-            return Ok(_mapper.Map<Post, PostDTO>(post));
+            return Ok(_mapper.Map<Book, BookDTO>(book));
         }
 
         
         [HttpPatch("update")]
-        public IActionResult Complete([FromBody] PostDTO itemDTO)
+        public IActionResult Complete([FromBody] BookDTO itemDTO)
         {
-            var item = _mapper.Map<PostDTO, Post>(itemDTO);
+            var item = _mapper.Map<BookDTO, Book>(itemDTO);
             
             _repository.Update(item);
 
-            return Ok(_mapper.Map<Post, PostDTO>(item));
+            return Ok(_mapper.Map<Book, BookDTO>(item));
         }
     }
 }

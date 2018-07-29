@@ -13,8 +13,14 @@ namespace Snap.Notes.Api.Mappers
                 cfg.CreateMap<Category, CategoryDTO>();
                 cfg.CreateMap<CategoryDTO, Category>();
 
+                cfg.CreateMap<Book, BookDTO>();
+                cfg.CreateMap<BookDTO, Book>();
+
                 cfg.CreateMap<Post, PostDTO>();
                 cfg.CreateMap<PostDTO, Post>();
+
+                cfg.CreateMap<Tag, TagDTO>();
+                cfg.CreateMap<TagDTO, Tag>();
             });
 
             return config.CreateMapper();

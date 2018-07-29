@@ -18,6 +18,8 @@ namespace Snap.Notes.Infrastructure.Data
 
         public DbSet<Category> Categories { get; set; }
         public DbSet<Post> Posts { get; set; }
+        public DbSet<Book> Books { get; set; }
+        public DbSet<Tag> Tags { get; set; }
 
         public override int SaveChanges()
         {
