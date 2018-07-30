@@ -10,6 +10,13 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.Net.Compilers" Version="2.8.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Snap.Notes.Api\Snap.Notes.Api.csproj" />
+    <ProjectReference Include="..\Snap.Notes.Core\Snap.Notes.Core.csproj" />
+    <ProjectReference Include="..\Snap.Notes.Infrastructure\Snap.Notes.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
