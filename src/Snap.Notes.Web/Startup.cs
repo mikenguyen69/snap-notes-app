@@ -31,7 +31,7 @@ namespace Snap.Notes.Web
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(
                     // Access to configuration data via Configuration's key 
-                    Configuration["Data:SportStoreProducts:ConnectionString"])
+                    Configuration["DefaultConnection:ConnectionString"])
             );
 
             //services.AddDbContext<AppDbContext>(options =>
@@ -68,7 +68,7 @@ namespace Snap.Notes.Web
                 {
                     _.AssemblyContainingType(typeof(Startup)); // Web
                     _.AssemblyContainingType(typeof(BaseEntity)); // Core
-                    _.Assembly("CASportStore.Infrastructure"); // Infrastructure
+                    _.Assembly("Snap.Notes.Infrastructure"); // Infrastructure
                     _.WithDefaultConventions();
                     _.ConnectImplementationsToTypesClosing(typeof(IHandler<>));
                 });
