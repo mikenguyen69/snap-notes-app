@@ -111,26 +111,26 @@ namespace Snap.Notes.Web
             {
                 routes.MapRoute(
                      name: null,
-                     template: "{category}/Page{productPage:int}",
-                     defaults: new { controller = "Product", action = "List" }
+                     template: "{category}/Page{postPage:int}",
+                     defaults: new { controller = "Post", action = "List" }
                 );
 
                 routes.MapRoute(
                     name: null,
-                    template: "Page{productPage:int}",
-                    defaults: new { controller = "Product", action = "List", page = 1 }
+                    template: "Page{PostPage:int}",
+                    defaults: new { controller = "Post", action = "List", page = 1 }
                 );
 
                 routes.MapRoute(
                     name: null,
                     template: "{category}",
-                    defaults: new { controller = "Product", action = "List", page = 1 }
+                    defaults: new { controller = "Post", action = "List", page = 1 }
                 );
 
                 routes.MapRoute(
                     name: null,
                     template: "",
-                    defaults: new { controller = "Product", action = "List", page = 1 });
+                    defaults: new { controller = "Post", action = "List", page = 1 });
 
                 routes.MapRoute(name: null, template: "{controller}/{action}/{id?}");
 
