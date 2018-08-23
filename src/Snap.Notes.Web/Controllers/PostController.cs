@@ -12,7 +12,7 @@ namespace Snap.Notes.Web.Controllers
     public class PostController : Controller
     {
         private IRepository<Post> _repository;
-        public int PageSize = 4;
+        public int PageSize = 10;
 
         // Auto resolve via dependency injection
         public PostController(IRepository<Post> repository)

@@ -29,9 +29,10 @@ namespace Snap.Notes.Web
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AppDbContext>(options =>
-                options.UseSqlServer(
-                    // Access to configuration data via Configuration's key 
-                    Configuration["DefaultConnection:ConnectionString"])
+                options.UseInMemoryDatabase()
+                //options.UseSqlServer(
+                //    // Access to configuration data via Configuration's key 
+                //    Configuration["DefaultConnection:ConnectionString"])
             );
 
             //services.AddDbContext<AppDbContext>(options =>
@@ -117,7 +118,7 @@ namespace Snap.Notes.Web
 
                 routes.MapRoute(
                     name: null,
-                    template: "Page{PostPage:int}",
+                    template: "Page{postPage:int}",
                     defaults: new { controller = "Post", action = "List", page = 1 }
                 );
 
