@@ -7,11 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snap.Notes.Core", "src\Snap
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snap.Notes.Infrastructure", "src\Snap.Notes.Infrastructure\Snap.Notes.Infrastructure.csproj", "{65B40FA7-8AB2-444A-9C28-4FC372534A7B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snap.Notes.Api", "src\Snap.Notes.Api\Snap.Notes.Api.csproj", "{A8A0E34A-B006-4A18-9B5A-96EC7C29BB3C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snap.Notes.Api", "src\Snap.Notes.Api\Snap.Notes.Api.csproj", "{A8A0E34A-B006-4A18-9B5A-96EC7C29BB3C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snap.Notes.Web", "src\Snap.Notes.Web\Snap.Notes.Web.csproj", "{C2D86CE5-F64D-4CBF-AC81-639926E52E53}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snap.Notes.Tests", "test\Snap.Notes.Tests\Snap.Notes.Tests.csproj", "{D1675008-A0B6-49AD-B2CA-5AAA0E6EFAE3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snap.Notes.Tests", "test\Snap.Notes.Tests\Snap.Notes.Tests.csproj", "{D1675008-A0B6-49AD-B2CA-5AAA0E6EFAE3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snap.Notes.Web", "src\Snap.Notes.Web\Snap.Notes.Web.csproj", "{A89EFB88-F4B9-4CAE-A4FB-232C72A04527}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,14 +31,14 @@ Global
 		{A8A0E34A-B006-4A18-9B5A-96EC7C29BB3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8A0E34A-B006-4A18-9B5A-96EC7C29BB3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8A0E34A-B006-4A18-9B5A-96EC7C29BB3C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C2D86CE5-F64D-4CBF-AC81-639926E52E53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C2D86CE5-F64D-4CBF-AC81-639926E52E53}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C2D86CE5-F64D-4CBF-AC81-639926E52E53}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C2D86CE5-F64D-4CBF-AC81-639926E52E53}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D1675008-A0B6-49AD-B2CA-5AAA0E6EFAE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D1675008-A0B6-49AD-B2CA-5AAA0E6EFAE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1675008-A0B6-49AD-B2CA-5AAA0E6EFAE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1675008-A0B6-49AD-B2CA-5AAA0E6EFAE3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A89EFB88-F4B9-4CAE-A4FB-232C72A04527}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A89EFB88-F4B9-4CAE-A4FB-232C72A04527}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A89EFB88-F4B9-4CAE-A4FB-232C72A04527}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A89EFB88-F4B9-4CAE-A4FB-232C72A04527}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -2,17 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using AutoMapper.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Configuration;
-using Snap.Notes.Infrastructure.Data;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Swashbuckle.AspNetCore.Swagger;
-using StructureMap;
-using Snap.Notes.Core.SharedKernel;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Snap.Notes.Api.Mappers;
+using Snap.Notes.Api.Models;
 using Snap.Notes.Core.Interfaces;
+using Snap.Notes.Core.SharedKernel;
+using Snap.Notes.Infrastructure.Data;
+using Snap.Notes.Infrastructure.DomainEvents;
+using StructureMap;
 
 namespace Snap.Notes.Web
 {
@@ -20,47 +25,31 @@ namespace Snap.Notes.Web
     {
         public IConfiguration Configuration { get; }
 
-        public Startup(IConfiguration config)
+        public Startup(IConfiguration configuration)
         {
-            Configuration = config;
+            Configuration = configuration;
         }
-
-        // Setup shared objects that can be used throughout the application through DI
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<AppDbContext>(options =>
-                options.UseInMemoryDatabase()
-                //options.UseSqlServer(
-                //    // Access to configuration data via Configuration's key 
-                //    Configuration["DefaultConnection:ConnectionString"])
-            );
-
-            //services.AddDbContext<AppDbContext>(options =>
-            //    options.UseSqlServer(
-            //        Configuration["Data:SportStoreIdentity:ConnectionString"]
-            //        )
-            //);
-            //services.AddIdentity<IdentityUser, IdentityRole>()
-            //    .AddEntityFrameworkStores<AppIdentityDbContext>()
-            //    .AddDefaultTokenProviders();
-
-            // Specify the same object should be used to satisfy related requests for Cart instances
-            //services.AddScoped<CartService>(sp => SessionCart.GetCart(sp));
-            // Specify the same object should always be used
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            // Create new object each time the interface is needed
-            // setup the shared objects used in MVC applications
-            services.AddMvc();
-            // setup in memory data store
-            services.AddMemoryCache();
-            // register services to access session data
-            services.AddSession();
-
-            services.AddSwaggerGen(c =>
+            services.Configure<CookiePolicyOptions>(options =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
+                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+            // TODO: Add DbContext and IOC
+            string dbName = Guid.NewGuid().ToString();
+            services.AddDbContext<AppDbContext>(options =>
+                options.UseInMemoryDatabase(dbName));
+            //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddMvc()
+                .AddControllersAsServices()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+           
+            services.AddSingleton<IMapper>(_ => AutoMapperConfig.GetMapper());
+            //services.AddScoped<IDomainEventDispatcher, DomainDeventDeparcher>();
             var container = new Container();
 
             container.Configure(config =>
@@ -78,6 +67,7 @@ namespace Snap.Notes.Web
 
                 // TODO: Move to Infrastucture Registry
                 config.For(typeof(IRepository<>)).Add(typeof(EfRepository<>));
+                config.For(typeof(IDomainEventDispatcher)).Add(typeof(DomainEventDispatcher));
 
                 //Populate the container using the service collection
                 config.Populate(services);
@@ -86,58 +76,49 @@ namespace Snap.Notes.Web
             return container.GetInstance<IServiceProvider>();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void ConfigureTesting(IApplicationBuilder app,
+            IHostingEnvironment env,
+            ILoggerFactory loggerFactory)
         {
+            this.Configure(app, env, loggerFactory);
+            SeedData.EnsurePopulated(app.ApplicationServices.GetService<AppDbContext>());
+        }
+
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        {
+            //loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+            loggerFactory.AddDebug();
+
             if (env.IsDevelopment())
             {
-                // Display details of exception during development process. Should be disabled when deploying the app.
                 app.UseDeveloperExceptionPage();
-                // Add simple message  to HTTP responses e.g. 404 
-                app.UseStatusCodePages();
             }
             else
             {
-                app.UseExceptionHandler("/Error");
+                app.UseExceptionHandler("/Home/Error");
+                app.UseHsts();
             }
 
-
-            // Enable support for serving static content from wwwroot folder
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
-            // Use session
-            app.UseSession();
-            // Setup component that intercept request and response to implement the security policy
-            app.UseAuthentication();
-            // Enable ASP.NET Core MVC
+            app.UseCookiePolicy();
+            app.UseStaticFiles();
+
+            //Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+
+            //Enable middleware to serve swagger - ui(HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
-                     name: null,
-                     template: "{category}/Page{postPage:int}",
-                     defaults: new { controller = "Post", action = "List" }
-                );
-
-                routes.MapRoute(
-                    name: null,
-                    template: "Page{postPage:int}",
-                    defaults: new { controller = "Post", action = "List", page = 1 }
-                );
-
-                routes.MapRoute(
-                    name: null,
-                    template: "{category}",
-                    defaults: new { controller = "Post", action = "List", page = 1 }
-                );
-
-                routes.MapRoute(
-                    name: null,
-                    template: "",
-                    defaults: new { controller = "Post", action = "List", page = 1 });
-
-                routes.MapRoute(name: null, template: "{controller}/{action}/{id?}");
-
+                    name: "default",
+                    template: "{controller=Post}/{action=List}/{id?}");
             });
-            //SeedData.EnsurePopulated(app);
-            //IdentitySeedData.EnsurePopulated(app);
         }
     }
 }
