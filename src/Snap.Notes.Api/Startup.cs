@@ -14,11 +14,11 @@ using Snap.Notes.Core.Interfaces;
 using Snap.Notes.Core.SharedKernel;
 using Swashbuckle.AspNetCore.Swagger;
 using AutoMapper;
-using StructureMap;
 using Microsoft.EntityFrameworkCore;
 using Snap.Notes.Api.Mappers;
 using Snap.Notes.Infrastructure.DomainEvents;
 using Snap.Notes.Api.Models;
+using StructureMap;
 
 namespace Snap.Notes.Api
 {

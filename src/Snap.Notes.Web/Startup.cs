@@ -80,7 +80,7 @@ namespace Snap.Notes.Web
             IHostingEnvironment env,
             ILoggerFactory loggerFactory)
         {
-            this.Configure(app, env, loggerFactory);
+            Configure(app, env, loggerFactory);
             SeedData.EnsurePopulated(app.ApplicationServices.GetService<AppDbContext>());
         }
 
