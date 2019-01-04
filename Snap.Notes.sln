@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snap.Notes.Tests", "test\Sn
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snap.Notes.Api", "src\Snap.Notes.Api\Snap.Notes.Api.csproj", "{7680B7A1-5B1E-46C2-83D3-95343D43FB16}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snap.Notes.Web.ReactJS", "src\Snap.Notes.Web.ReactJS\Snap.Notes.Web.ReactJS.csproj", "{84F6199F-1D3C-4C14-BC6F-6F3A4581960C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snap.Notes.Web.ReactJS", "src\Snap.Notes.Web.ReactJS\Snap.Notes.Web.ReactJS.csproj", "{84F6199F-1D3C-4C14-BC6F-6F3A4581960C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
